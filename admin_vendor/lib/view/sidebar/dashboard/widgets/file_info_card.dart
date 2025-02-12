@@ -1,7 +1,9 @@
+// file_info_card.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../../constants.dart';
 import '../../../../model/my_files.dart';
+import '../../../../responsive.dart';
 
 class FileInfoCard extends StatelessWidget {
   const FileInfoCard({
@@ -17,7 +19,7 @@ class FileInfoCard extends StatelessWidget {
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,18 +29,18 @@ class FileInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                  padding: EdgeInsets.all(defaultPadding * 0.75),
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: info.color!.withOpacity(0.1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Image.asset(
-                    info.image!,
-                    color: info.color ?? Colors.black,
-                    colorBlendMode: BlendMode.srcIn,
-                  )),
+                padding: EdgeInsets.all(defaultPadding * 0.75),
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: info.color?.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Image.asset(
+                  info.image!,
+                  fit: BoxFit.contain,
+                ),
+              ),
               Icon(Icons.more_vert, color: Colors.white54)
             ],
           ),
@@ -46,33 +48,30 @@ class FileInfoCard extends StatelessWidget {
             info.title!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 14),
           ),
           ProgressLine(
             color: info.color,
             percentage: info.percentage,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${info.numOfFiles} Files",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(color: Colors.white70),
-                ),
-                SizedBox(width: defaultPadding),
-                Text(
-                  info.totalStorage!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(color: Colors.white),
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "${info.totalStorage}",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Colors.white70),
+              ),
+              Text(
+                "${info.percentage}%",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Colors.white),
+              ),
+            ],
           )
         ],
       ),
@@ -98,13 +97,13 @@ class ProgressLine extends StatelessWidget {
           width: double.infinity,
           height: 5,
           decoration: BoxDecoration(
-            color: color!.withOpacity(0.1),
+            color: color?.withOpacity(0.1),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
         ),
         LayoutBuilder(
           builder: (context, constraints) => Container(
-            width: constraints.maxWidth * (percentage! / 100),
+            width: constraints.maxWidth * ((percentage ?? 0) / 100),
             height: 5,
             decoration: BoxDecoration(
               color: color,
@@ -113,6 +112,87 @@ class ProgressLine extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// my_files.dart
+class MyFiles extends StatelessWidget {
+  const MyFiles({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Size _size = MediaQuery.of(context).size;
+    return Container(
+      padding: EdgeInsets.all(defaultPadding),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "My Files",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              ElevatedButton.icon(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: defaultPadding * 1.5,
+                    vertical:
+                        defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                  ),
+                ),
+                onPressed: () {},
+                icon: Icon(Icons.add),
+                label: Text("Add New"),
+              ),
+            ],
+          ),
+          SizedBox(height: defaultPadding),
+          Responsive(
+            mobile: FileInfoCardGridView(
+              crossAxisCount: _size.width < 650 ? 2 : 4,
+              childAspectRatio: _size.width < 850 ? 1.3 : 1,
+            ),
+            tablet: FileInfoCardGridView(
+              childAspectRatio: _size.width < 900 ? 1.5 : 1.8,
+            ),
+            desktop: FileInfoCardGridView(
+              childAspectRatio: _size.width < 1400 ? 1.4 : 1.8,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FileInfoCardGridView extends StatelessWidget {
+  const FileInfoCardGridView({
+    Key? key,
+    this.crossAxisCount = 4,
+    this.childAspectRatio = 1,
+  }) : super(key: key);
+
+  final int crossAxisCount;
+  final double childAspectRatio;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(maxHeight: 300), // Add height constraint
+      child: GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: demoMyFiles.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: defaultPadding,
+          mainAxisSpacing: defaultPadding,
+          childAspectRatio: childAspectRatio,
+        ),
+        itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
+      ),
     );
   }
 }
