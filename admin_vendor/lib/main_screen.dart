@@ -1,3 +1,4 @@
+import 'package:admin_vendor/view/sidebar/profile/profile_page.dart';
 import 'package:admin_vendor/view/sidebar/services/services_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +20,8 @@ class _MainScreenState extends State<MainScreen> {
     const DashboardScreen(),
     TransactionScreen(),
     const OrdersScreen(),
-    const DocumentsPage(),
     ServicesScreen(),
-    const NotificationPage(),
-    const ProfilePage(),
+    ProfilePage(),
     const SettingsPage(),
   ];
 
@@ -30,9 +29,7 @@ class _MainScreenState extends State<MainScreen> {
     NavigationItem(icon: Icons.dashboard_outlined, label: 'Dashboard'),
     NavigationItem(icon: Icons.receipt_long_outlined, label: 'Transaction'),
     NavigationItem(icon: Icons.task_outlined, label: 'Order'),
-    NavigationItem(icon: Icons.document_scanner_outlined, label: 'Documents'),
     NavigationItem(icon: Icons.design_services, label: 'Service'),
-    NavigationItem(icon: Icons.notifications_outlined, label: 'Notification'),
     NavigationItem(icon: Icons.person_outline, label: 'Profile'),
     NavigationItem(icon: Icons.settings_outlined, label: 'Settings'),
   ];
@@ -75,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
           const SizedBox(height: 30),
           Image.asset(
             'assets/logo.png', // Replace with your logo
-            height: 60,
+            height: 80,
           ),
           const SizedBox(height: 20),
           Expanded(
@@ -183,33 +180,6 @@ class NavigationItem {
 }
 
 // Dummy Pages (Replace with your actual pages)
-
-class DocumentsPage extends StatelessWidget {
-  const DocumentsPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Documents Page', style: TextStyle(fontSize: 24)));
-  }
-}
-
-class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Notification Page', style: TextStyle(fontSize: 24)));
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Profile Page', style: TextStyle(fontSize: 24)));
-  }
-}
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
