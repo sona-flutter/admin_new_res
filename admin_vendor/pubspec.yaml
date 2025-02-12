@@ -1,6 +1,6 @@
 name: admin_vendor
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -15,6 +15,7 @@ dependencies:
   get: ^4.6.6
   google_fonts: ^4.0.0
   intl: ^0.20.2
+  image_picker: ^1.0.4 # 🟢 Image Picker Dependency Add Keli
 
 dev_dependencies:
   flutter_test:

@@ -1,28 +1,36 @@
+import 'dart:io';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
-  final RxString salonName = 'xyz'.obs;
-  final RxString salonEmail = '@gmail.com'.obs;
-  final RxString salonLocation = 'pune'.obs;
-  final RxString salonHours = '9:00 AM - 9:00 PM'.obs;
-  final RxString salonContact = '-'.obs;
-  final RxInt totalStaff = 10.obs;
-  final RxInt totalServices = 1.obs;
-  final RxInt services = 0.obs;
-  final RxInt totalChairs = 9.obs;
-  final RxDouble rating = 3.8.obs;
-  final RxString description =
-      'Premium salon services with experienced staff.\nSpecializing in haircuts, styling, and beauty treatments.'
-          .obs;
+  final RxString salonName = ' Beauty Salon'.obs;
+  final RxString salonEmail = 'contact@malasalon.com'.obs;
+  final RxString salonPhone = '+1 234 567 890'.obs;
+  final RxString salonAddress = '123 Main Street, City'.obs;
+  final RxInt totalClients = 156.obs;
+  final RxDouble rating = 4.8.obs;
 
-  // Move these lists inside the controller
-  List<Map<String, dynamic>> get servicesList => [
+  // Image path store karayla
+  final RxnString profileImage = RxnString();
+
+  // Image select function
+  Future<void> pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      profileImage.value = pickedFile.path;
+    }
+  }
+
+  // Services List
+  List<Map<String, dynamic>> get services => [
         {'name': 'Haircut', 'price': 30, 'duration': '30 min'},
         {'name': 'Hair Color', 'price': 75, 'duration': '90 min'},
         {'name': 'Facial', 'price': 50, 'duration': '60 min'},
         {'name': 'Manicure', 'price': 25, 'duration': '45 min'},
       ];
 
+  // Staff Members List
   List<Map<String, dynamic>> get staffMembers => [
         {'name': 'John Doe', 'role': 'Senior Stylist', 'rating': 4.9},
         {'name': 'Jane Smith', 'role': 'Colorist', 'rating': 4.8},

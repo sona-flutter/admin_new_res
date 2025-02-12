@@ -1,199 +1,136 @@
-// profile_details.dart
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'profile_controller.dart';
 
 class ProfileDetails extends GetView<ProfileController> {
-  const ProfileDetails({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          const SizedBox(height: 20),
-          _buildStats(),
-          const SizedBox(height: 20),
-          _buildSalonDetails(),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildProfileImage(),
+            const SizedBox(height: 12),
+            _buildSalonName(),
+            const SizedBox(height: 12),
+            _buildStats(), // 🆕 Updated Stats Section
+            const SizedBox(height: 12),
+            _buildContactInfo(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildHeader() {
-    return Center(
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: 100,
-                height: 100,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.purple,
-                ),
-                child: const Center(
-                  child: Text(
-                    'S',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-              ),
-            ],
+  // 🟢 Centered Profile Image with Image Picker
+  Widget _buildProfileImage() {
+    return Obx(() {
+      return GestureDetector(
+        onTap: () => controller.pickImage(),
+        child: CircleAvatar(
+          radius: 50, // 🛑 Size कमी केली
+          backgroundColor: Colors.grey[300],
+          backgroundImage: controller.profileImage.value != null
+              ? FileImage(File(controller.profileImage.value!)) as ImageProvider
+              : const AssetImage('assets/default_avatar.png'),
+          child: controller.profileImage.value == null
+              ? const Icon(Icons.camera_alt, size: 28, color: Colors.white)
+              : null,
+        ),
+      );
+    });
+  }
+
+  // 🟢 Salon Name
+  Widget _buildSalonName() {
+    return Obx(() => Text(
+          controller.salonName.value,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue.shade700, // 🔵 Beauty Salon चा रंग blue केला
           ),
-          const SizedBox(height: 16),
-          Obx(() => Text(
-                controller.salonName.value,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              )),
-          const SizedBox(height: 8),
-          Obx(() => Text(
-                controller.salonEmail.value,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              )),
-          const SizedBox(height: 16),
-          Obx(() => Text(
-                controller.description.value,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              )),
-        ],
-      ),
-    );
+        ));
   }
 
+  // 🆕 Updated Stats Section with New Colors
   Widget _buildStats() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildStatItem(Icons.people, controller.totalStaff.toString(), 'Staff'),
-        _buildStatItem(Icons.design_services,
-            controller.totalServices.toString(), 'Services'),
         _buildStatItem(
-            Icons.chair, controller.totalChairs.toString(), 'Chairs'),
-        _buildStatItem(Icons.star, controller.rating.toString(), 'Rating'),
+            Icons.people, '${controller.staffMembers.length}', 'Staff'),
+        _verticalDivider(),
+        _buildStatItem(
+            Icons.build, '${controller.services.length}', 'Services'),
+        _verticalDivider(),
+        _buildStatItem(Icons.chair, '8', 'Chairs'),
+        _verticalDivider(),
+        _buildStatItem(Icons.star, '${controller.rating}', 'Rating'),
       ],
+    );
+  }
+
+  // 🆕 Vertical Divider (Light Gray)
+  Widget _verticalDivider() {
+    return Container(
+      height: 30,
+      width: 1,
+      color: Colors.grey.shade400,
     );
   }
 
   Widget _buildStatItem(IconData icon, String value, String label) {
     return Column(
       children: [
-        Icon(icon, color: Colors.blue, size: 24),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 14,
-          ),
-        ),
+        Icon(icon,
+            color: Colors.blue.shade600,
+            size: 24), // 🔵 Icons ला हलकासा blue tone
+        const SizedBox(height: 2),
+        Text(value,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.teal.shade700, // 🟢 Numbers teal रंगात
+            )),
+        Text(label,
+            style: TextStyle(
+              fontSize: 12,
+              color:
+                  Colors.blueGrey.shade600, // 🔵 Labels हलकासा blue-grey केला
+            )),
       ],
     );
   }
 
-  Widget _buildSalonDetails() {
+  // 🟢 Contact Info Section
+  Widget _buildContactInfo() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Salon Details',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+        ListTile(
+          leading: Icon(Icons.email, size: 18, color: Colors.blueGrey.shade600),
+          title: Obx(() => Text(
+                controller.salonEmail.value,
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+              )),
         ),
-        const SizedBox(height: 20),
-        _buildDetailItem(
-          Icons.location_on,
-          'Location',
-          controller.salonLocation.value,
+        ListTile(
+          leading: Icon(Icons.phone, size: 18, color: Colors.blueGrey.shade600),
+          title: Obx(() => Text(
+                controller.salonPhone.value,
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+              )),
         ),
-        const SizedBox(height: 16),
-        _buildDetailItem(
-          Icons.access_time,
-          'Hours',
-          controller.salonHours.value,
-        ),
-        const SizedBox(height: 16),
-        _buildDetailItem(
-          Icons.phone,
-          'Contact',
-          controller.salonContact.value,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDetailItem(IconData icon, String label, String value) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(
-          icon,
-          color: Colors.grey,
-          size: 24,
-        ),
-        const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+        ListTile(
+          leading: Icon(Icons.location_on,
+              size: 18, color: Colors.blueGrey.shade600),
+          title: Obx(() => Text(
+                controller.salonAddress.value,
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+              )),
         ),
       ],
     );

@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'profile_controller.dart';
 
 class ProfileServices extends GetView<ProfileController> {
-  const ProfileServices({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +12,7 @@ class ProfileServices extends GetView<ProfileController> {
         children: [
           _buildHeader(),
           const SizedBox(height: 16),
-          _buildServicesList(), // Removed parameter
+          _buildServicesList(),
         ],
       ),
     );
@@ -40,13 +38,12 @@ class ProfileServices extends GetView<ProfileController> {
   }
 
   Widget _buildServicesList() {
-    // Removed parameter
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: controller.servicesList.length,
+      itemCount: controller.services.length,
       itemBuilder: (context, index) {
-        final service = controller.servicesList[index];
+        final service = controller.services[index];
         return Card(
           child: ListTile(
             title: Text(service['name']),
