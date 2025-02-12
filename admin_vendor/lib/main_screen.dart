@@ -1,3 +1,4 @@
+import 'package:admin_vendor/view/sidebar/services/services_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'view/sidebar/dashboard/dashboard_screen copy.dart';
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     TransactionScreen(),
     OrderScreen(),
     const DocumentsPage(),
-    const StorePage(),
+    ServicesScreen(),
     const NotificationPage(),
     const ProfilePage(),
     const SettingsPage(),
@@ -30,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
     NavigationItem(icon: Icons.receipt_long_outlined, label: 'Transaction'),
     NavigationItem(icon: Icons.task_outlined, label: 'Order'),
     NavigationItem(icon: Icons.document_scanner_outlined, label: 'Documents'),
-    NavigationItem(icon: Icons.store_outlined, label: 'Store'),
+    NavigationItem(icon: Icons.design_services, label: 'Service'),
     NavigationItem(icon: Icons.notifications_outlined, label: 'Notification'),
     NavigationItem(icon: Icons.person_outline, label: 'Profile'),
     NavigationItem(icon: Icons.settings_outlined, label: 'Settings'),
@@ -189,15 +190,6 @@ class DocumentsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
         child: Text('Documents Page', style: TextStyle(fontSize: 24)));
-  }
-}
-
-class StorePage extends StatelessWidget {
-  const StorePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Store Page', style: TextStyle(fontSize: 24)));
   }
 }
 
