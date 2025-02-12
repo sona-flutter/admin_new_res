@@ -1,8 +1,8 @@
+// my_files.dart
 import 'package:admin_vendor/constants.dart';
 import 'package:admin_vendor/model/my_files.dart';
 import 'package:admin_vendor/responsive.dart';
 import 'package:flutter/material.dart';
-
 import 'file_info_card.dart';
 
 class MyFiles extends StatelessWidget {
@@ -19,7 +19,7 @@ class MyFiles extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Satus",
+              "Status",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             ElevatedButton.icon(
@@ -42,7 +42,9 @@ class MyFiles extends StatelessWidget {
             crossAxisCount: _size.width < 650 ? 2 : 4,
             childAspectRatio: _size.width < 650 ? 1.3 : 1,
           ),
-          tablet: FileInfoCardGridView(),
+          tablet: FileInfoCardGridView(
+            childAspectRatio: 1.1,
+          ),
           desktop: FileInfoCardGridView(
             childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
           ),

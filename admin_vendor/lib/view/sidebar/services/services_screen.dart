@@ -3,6 +3,7 @@ import 'package:admin_vendor/view/sidebar/services/components/models/service_mod
 import 'package:admin_vendor/view/sidebar/services/components/services_card.dart';
 import 'package:flutter/material.dart';
 
+import 'components/add_service.dart';
 import 'components/stats_card.dart';
 import 'constants.dart';
 
@@ -110,11 +111,21 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add new service logic
+        onPressed: () async {
+          final result = await showDialog(
+            context: context,
+            builder: (context) => AddServiceDialog(
+              salonName: "Apple",
+            ),
+          );
+
+          if (result != null) {
+            // Handle the result
+            print(result);
+          }
         },
         child: Icon(Icons.add),
-        backgroundColor: Colors.purple, // Changed FAB color
+        backgroundColor: Colors.purple,
       ),
     );
   }
@@ -127,19 +138,19 @@ class _ServicesScreenState extends State<ServicesScreen> {
           StatsCard(
             title: 'Total Services',
             value: services.length.toString(),
-            color: Color(0xFFE3F2FD), // Light blue background
+            color: Color.fromARGB(255, 80, 126, 159), // Light blue background
             icon: Icons.spa,
           ),
           StatsCard(
             title: 'Active Services',
             value: services.where((s) => s.isActive).length.toString(),
-            color: Color(0xFFE8F5E9), // Light green background
+            color: Color.fromARGB(255, 79, 158, 86), // Light green background
             icon: Icons.check_circle,
           ),
           StatsCard(
             title: 'Inactive Services',
             value: services.where((s) => !s.isActive).length.toString(),
-            color: Color(0xFFFFEBEE), // Light red background
+            color: Color.fromARGB(255, 146, 63, 75), // Light red background
             icon: Icons.remove_circle,
           ),
         ],
@@ -159,7 +170,8 @@ class _ServicesScreenState extends State<ServicesScreen> {
             child: ChoiceChip(
               label: Text(ServicesConstants.categories[index]),
               selected: selectedCategory == ServicesConstants.categories[index],
-              selectedColor: Colors.purple.shade100, // Changed selected color
+              selectedColor: const Color.fromARGB(
+                  255, 62, 160, 83), // Changed selected color
               onSelected: (selected) {
                 setState(() {
                   selectedCategory = ServicesConstants.categories[index];

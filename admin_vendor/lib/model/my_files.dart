@@ -1,16 +1,16 @@
+// cloud_storage_info.dart
 import 'package:admin_vendor/constants.dart';
 import 'package:flutter/material.dart';
 
 class CloudStorageInfo {
   final String? image, title, totalStorage;
-  final int? numOfFiles, percentage;
+  final int? percentage;
   final Color? color;
 
   CloudStorageInfo({
     this.image,
     this.title,
     this.totalStorage,
-    this.numOfFiles,
     this.percentage,
     this.color,
   });
@@ -19,7 +19,6 @@ class CloudStorageInfo {
 List demoMyFiles = [
   CloudStorageInfo(
     title: "Services",
-    numOfFiles: 1328,
     image: "assets/icons/service.jpg",
     totalStorage: "5",
     color: primaryColor,
@@ -27,7 +26,6 @@ List demoMyFiles = [
   ),
   CloudStorageInfo(
     title: "Orders",
-    numOfFiles: 1328,
     image: "assets/icons/service.jpg",
     totalStorage: "5",
     color: Color(0xFFFFA113),
@@ -35,7 +33,6 @@ List demoMyFiles = [
   ),
   CloudStorageInfo(
     title: "Seats",
-    numOfFiles: 1328,
     image: "assets/icons/service.jpg",
     totalStorage: "3",
     color: Color(0xFFA4CDFF),
@@ -43,7 +40,6 @@ List demoMyFiles = [
   ),
   CloudStorageInfo(
     title: "Staff",
-    numOfFiles: 5328,
     image: "assets/icons/service.jpg",
     totalStorage: "4",
     color: Color(0xFF007EE5),

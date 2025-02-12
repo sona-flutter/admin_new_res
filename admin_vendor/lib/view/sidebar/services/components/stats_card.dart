@@ -1,4 +1,3 @@
-// lib/view/sidebar/services/components/stats_card.dart
 import 'package:flutter/material.dart';
 
 class StatsCard extends StatelessWidget {
@@ -18,29 +17,47 @@ class StatsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Card(
-        color: color,
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(icon),
-                  SizedBox(width: 8),
-                  Text(title),
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      flex: 1,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        child: Card(
+          color: color,
+          child: Container(
+            height: 85, // Reduced height
+            padding: const EdgeInsets.symmetric(
+                horizontal: 12, vertical: 8), // Adjusted padding
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Use minimum space needed
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(icon, size: 16, color: Colors.white), // Smaller icon
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        title,
+                        maxLines: 1, // Force single line
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12, // Smaller font
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const Spacer(), // Push value to bottom
+                Text(
+                  value,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 28, // Larger number
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

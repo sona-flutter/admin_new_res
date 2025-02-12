@@ -1,7 +1,8 @@
-import 'package:admin_vendor/constants.dart';
-import 'package:admin_vendor/model/recent_files.dart';
+// The main widget
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../model/recent_files.dart';
 
 class RecentFiles extends StatelessWidget {
   const RecentFiles({
@@ -11,37 +12,57 @@ class RecentFiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(16.0), // Using a standard padding value
       decoration: BoxDecoration(
-        color: secondaryColor,
+        color: Theme.of(context)
+            .cardColor, // Using theme color instead of hardcoded
         borderRadius: const BorderRadius.all(Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Recent Orders",
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
           ),
+          const SizedBox(height: 16.0),
           SizedBox(
             width: double.infinity,
             child: DataTable(
-              columnSpacing: defaultPadding,
-              // minWidth: 600,
-              columns: [
+              columnSpacing: 16.0,
+              horizontalMargin: 0,
+              columns: const [
                 DataColumn(
-                  label: Text("Recent Customer"),
+                  label: Text(
+                    "Recent Customer",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 DataColumn(
-                  label: Text("Date"),
+                  label: Text(
+                    "Date",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 DataColumn(
-                  label: Text("Service"),
+                  label: Text(
+                    "Service",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
               rows: List.generate(
                 demoRecentFiles.length,
-                (index) => recentFileDataRow(demoRecentFiles[index]),
+                (index) => _buildDataRow(demoRecentFiles[index]),
               ),
             ),
           ),
@@ -49,28 +70,43 @@ class RecentFiles extends StatelessWidget {
       ),
     );
   }
-}
 
-DataRow recentFileDataRow(RecentFile fileInfo) {
-  return DataRow(
-    cells: [
-      DataCell(
-        Row(
-          children: [
-            SvgPicture.asset(
-              fileInfo.icon!,
-              height: 30,
-              width: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(fileInfo.title!),
-            ),
-          ],
+  DataRow _buildDataRow(RecentFile fileInfo) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (fileInfo.icon != null && fileInfo.icon!.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: SvgPicture.asset(
+                      fileInfo.icon!,
+                      height: 30,
+                      width: 30,
+                      placeholderBuilder: (context) => const SizedBox(
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              Flexible(
+                child: Text(
+                  fileInfo.title ?? 'Unnamed',
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
-    ],
-  );
+        DataCell(Text(fileInfo.date ?? '-')),
+        DataCell(Text(fileInfo.service ?? '-')),
+      ],
+    );
+  }
 }
