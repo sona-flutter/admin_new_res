@@ -72,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
           const SizedBox(height: 30),
           Image.asset(
             'assets/logo.png', // Replace with your logo
-            height: 80,
+            height: 60,
           ),
           const SizedBox(height: 20),
           Expanded(
