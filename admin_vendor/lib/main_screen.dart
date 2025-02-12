@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     const OrdersScreen(),
     ServicesScreen(),
     ProfilePage(),
-    const SettingsPage(),
+    const AboutDialog(),
   ];
 
   final List<NavigationItem> _navigationItems = [
@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
     NavigationItem(icon: Icons.task_outlined, label: 'Order'),
     NavigationItem(icon: Icons.design_services, label: 'Service'),
     NavigationItem(icon: Icons.person_outline, label: 'Profile'),
-    NavigationItem(icon: Icons.settings_outlined, label: 'Settings'),
+    NavigationItem(icon: Icons.info_outline, label: 'About Us'),
   ];
 
   @override
@@ -177,15 +177,4 @@ class NavigationItem {
   final IconData icon;
   final String label;
   NavigationItem({required this.icon, required this.label});
-}
-
-// Dummy Pages (Replace with your actual pages)
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Settings Page', style: TextStyle(fontSize: 24)));
-  }
 }
