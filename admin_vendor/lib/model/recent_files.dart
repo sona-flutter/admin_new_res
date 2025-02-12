@@ -7,21 +7,21 @@ class RecentFile {
 List demoRecentFiles = [
   RecentFile(
     icon: "assets/icons/xd_file.svg",
-    title: "XD File",
+    title: "Govinda",
     date: "01-03-2021",
-    size: "3.5mb",
+    size: "Hair Cut",
   ),
   RecentFile(
     icon: "assets/icons/Figma_file.svg",
-    title: "Figma File",
+    title: "Rushikesh",
     date: "27-02-2021",
-    size: "19.0mb",
+    size: "-",
   ),
   RecentFile(
     icon: "assets/icons/doc_file.svg",
-    title: "Document",
+    title: "Rugved",
     date: "23-02-2021",
-    size: "32.5mb",
+    size: "-",
   ),
   RecentFile(
     icon: "assets/icons/sound_file.svg",
