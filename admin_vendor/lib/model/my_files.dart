@@ -2,12 +2,12 @@ import 'package:admin_vendor/constants.dart';
 import 'package:flutter/material.dart';
 
 class CloudStorageInfo {
-  final String? svgSrc, title, totalStorage;
+  final String? image, title, totalStorage;
   final int? numOfFiles, percentage;
   final Color? color;
 
   CloudStorageInfo({
-    this.svgSrc,
+    this.image,
     this.title,
     this.totalStorage,
     this.numOfFiles,
@@ -18,34 +18,34 @@ class CloudStorageInfo {
 
 List demoMyFiles = [
   CloudStorageInfo(
-    title: "Documents",
+    title: "Services",
     numOfFiles: 1328,
-    svgSrc: "assets/icons/Documents.svg",
-    totalStorage: "1.9GB",
+    image: "assets/icons/service.jpg",
+    totalStorage: "5",
     color: primaryColor,
     percentage: 35,
   ),
   CloudStorageInfo(
-    title: "Google Drive",
+    title: "Orders",
     numOfFiles: 1328,
-    svgSrc: "assets/icons/google_drive.svg",
-    totalStorage: "2.9GB",
+    image: "assets/icons/service.jpg",
+    totalStorage: "5",
     color: Color(0xFFFFA113),
     percentage: 35,
   ),
   CloudStorageInfo(
-    title: "One Drive",
+    title: "Seats",
     numOfFiles: 1328,
-    svgSrc: "assets/icons/one_drive.svg",
-    totalStorage: "1GB",
+    image: "assets/icons/service.jpg",
+    totalStorage: "3",
     color: Color(0xFFA4CDFF),
     percentage: 10,
   ),
   CloudStorageInfo(
-    title: "Documents",
+    title: "Staff",
     numOfFiles: 5328,
-    svgSrc: "assets/icons/drop_box.svg",
-    totalStorage: "7.3GB",
+    image: "assets/icons/service.jpg",
+    totalStorage: "4",
     color: Color(0xFF007EE5),
     percentage: 78,
   ),

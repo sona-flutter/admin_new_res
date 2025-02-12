@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     const DashboardScreen(),
     TransactionScreen(),
-    OrderScreen(),
+    const OrdersScreen(),
     const DocumentsPage(),
     const StorePage(),
     const NotificationPage(),

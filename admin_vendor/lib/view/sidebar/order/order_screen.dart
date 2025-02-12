@@ -1,110 +1,119 @@
-// lib/view/sidebar/order/order_screen.dart
-import 'package:admin_vendor/view/sidebar/order/widgets/order_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import 'widgets/order_tab.dart';
-import 'widgets/order_list_item.dart';
-
-class OrderScreen extends StatefulWidget {
-  const OrderScreen({Key? key}) : super(key: key);
+class OrdersScreen extends StatefulWidget {
+  const OrdersScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
+  State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _OrdersScreenState extends State<OrdersScreen> {
   String selectedTab = 'All orders';
-  List<Order> orders = [];
-  DateTimeRange? selectedDateRange;
+  final TextEditingController _dateRangeController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    // Initialize with sample data
-    _loadSampleData();
-  }
-
-  void _loadSampleData() {
-    orders = [
-      Order(
-        id: '2632',
-        name: 'Brooklyn Zoe',
-        address: '302 Snider Street, RUTLAND, VT, 05701',
-        date: '31 Jul 2020',
-        price: 64.00,
-        status: 'Pending',
-        avatarUrl: 'https://via.placeholder.com/32',
-      ),
-      Order(
-        id: '2633',
-        name: 'John McCormick',
-        address: '1095 Wiseman Street, CALMAR, IA, 52132',
-        date: '01 Aug 2020',
-        price: 35.00,
-        status: 'Dispatch',
-        avatarUrl: 'https://via.placeholder.com/32',
-      ),
-      Order(
-        id: '2634',
-        name: 'Sandra Pugh',
-        address: '1640 Thorn Street, SALE CITY, GA, 98506',
-        date: '02 Aug 2020',
-        price: 74.00,
-        status: 'Completed',
-        avatarUrl: 'https://via.placeholder.com/32',
-      ),
-      Order(
-        id: '2635',
-        name: 'Vernie Hart',
-        address: '3898 Oak Drive, DOVER, DE, 19904',
-        date: '02 Aug 2020',
-        price: 82.00,
-        status: 'Pending',
-        avatarUrl: 'https://via.placeholder.com/32',
-      ),
-      Order(
-        id: '2636',
-        name: 'Mark Clark',
-        address: '1595 Augusta Park, NASSAU, NY, 12062',
-        date: '03 Aug 2020',
-        price: 39.00,
-        status: 'Dispatch',
-        avatarUrl: 'https://via.placeholder.com/32',
-      ),
-      Order(
-        id: '2637',
-        name: 'Rebekah Foster',
-        address: '3485 Park Boulevard, BIOLA, CA, 93606',
-        date: '03 Aug 2020',
-        price: 67.00,
-        status: 'Pending',
-        avatarUrl: 'https://via.placeholder.com/32',
-      ),
-    ];
-    setState(() {});
-  }
-
-  Future<void> _selectDateRange() async {
-    final DateTimeRange? dateRange = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2025),
-      initialDateRange: selectedDateRange,
-    );
-
-    if (dateRange != null) {
-      setState(() {
-        selectedDateRange = dateRange;
-      });
-    }
-  }
-
-  void _onTabSelected(String tabName) {
-    setState(() {
-      selectedTab = tabName;
-    });
-    // Add filtering logic here
-  }
+  final List<Map<String, dynamic>> orders = [
+    {
+      'id': 'ORD001',
+      'name': 'Emma Wilson',
+      'service': 'Hair Coloring & Styling',
+      'date': DateTime(2020, 7, 31),
+      'price': 120.00,
+      'status': 'Pending',
+      'payment_status': 'Pending',
+      'payment_method': '-'
+    },
+    {
+      'id': 'ORD002',
+      'name': 'Sarah Johnson',
+      'service': 'Spa Facial Treatment',
+      'date': DateTime(2020, 8, 1),
+      'price': 85.00,
+      'status': 'Dispatch',
+      'payment_status': 'Paid',
+      'payment_method': 'Cash'
+    },
+    {
+      'id': 'ORD003',
+      'name': 'Michael Brown',
+      'service': 'Men\'s Haircut & Beard Trim',
+      'date': DateTime(2020, 8, 2),
+      'price': 45.00,
+      'status': 'Completed',
+      'payment_status': 'Paid',
+      'payment_method': 'Card'
+    },
+    {
+      'id': 'ORD004',
+      'name': 'Lisa Anderson',
+      'service': 'Manicure & Pedicure',
+      'date': DateTime(2020, 8, 2),
+      'price': 65.00,
+      'status': 'Pending',
+      'payment_status': 'Failed',
+      'payment_method': 'Card'
+    },
+    {
+      'id': 'ORD005',
+      'name': 'James Miller',
+      'service': 'Full Body Massage',
+      'date': DateTime(2020, 8, 3),
+      'price': 90.00,
+      'status': 'Dispatch',
+      'payment_status': 'Paid',
+      'payment_method': 'UPI'
+    },
+    {
+      'id': 'ORD006',
+      'name': 'Jennifer Davis',
+      'service': 'Hair Extensions',
+      'date': DateTime(2020, 8, 3),
+      'price': 200.00,
+      'status': 'Pending',
+      'payment_status': 'Pending',
+      'payment_method': '-'
+    },
+    {
+      'id': 'ORD007',
+      'name': 'Robert Taylor',
+      'service': 'Deep Conditioning Treatment',
+      'date': DateTime(2020, 8, 4),
+      'price': 55.00,
+      'status': 'Completed',
+      'payment_status': 'Paid',
+      'payment_method': 'Cash'
+    },
+    {
+      'id': 'ORD008',
+      'name': 'Maria Garcia',
+      'service': 'Bridal Makeup Package',
+      'date': DateTime(2020, 8, 4),
+      'price': 150.00,
+      'status': 'Dispatch',
+      'payment_status': 'Paid',
+      'payment_method': 'Card'
+    },
+    {
+      'id': 'ORD009',
+      'name': 'David Martinez',
+      'service': 'Hair Straightening',
+      'date': DateTime(2020, 8, 5),
+      'price': 110.00,
+      'status': 'Pending',
+      'payment_status': 'Failed',
+      'payment_method': 'UPI'
+    },
+    {
+      'id': 'ORD010',
+      'name': 'Ashley White',
+      'service': 'Waxing Service',
+      'date': DateTime(2020, 8, 5),
+      'price': 75.00,
+      'status': 'Completed',
+      'payment_status': 'Paid',
+      'payment_method': 'Cash'
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -119,113 +128,216 @@ class _OrderScreenState extends State<OrderScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 20),
-            // Tabs
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  OrderTab(
-                    text: 'All orders',
-                    isSelected: selectedTab == 'All orders',
-                    onTap: () => _onTabSelected('All orders'),
-                  ),
-                  OrderTab(
-                    text: 'Dispatch',
-                    isSelected: selectedTab == 'Dispatch',
-                    onTap: () => _onTabSelected('Dispatch'),
-                  ),
-                  OrderTab(
-                    text: 'Pending',
-                    isSelected: selectedTab == 'Pending',
-                    onTap: () => _onTabSelected('Pending'),
-                  ),
-                  OrderTab(
-                    text: 'Completed',
-                    isSelected: selectedTab == 'Completed',
-                    onTap: () => _onTabSelected('Completed'),
-                  ),
+                  _buildTab('All orders'),
+                  _buildTab('Dispatch'),
+                  _buildTab('Pending'),
+                  _buildTab('Completed'),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            // Date range and search
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: _selectDateRange,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.calendar_today, size: 20),
-                          const SizedBox(width: 8),
-                          Text(
-                            selectedDateRange != null
-                                ? '${selectedDateRange!.start.toString().split(' ')[0]} to ${selectedDateRange!.end.toString().split(' ')[0]}'
-                                : 'Select date range',
-                            style: TextStyle(color: Colors.grey.shade700),
-                          ),
+            TextField(
+              controller: _dateRangeController,
+              decoration: InputDecoration(
+                hintText: 'Select date range',
+                hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                prefixIcon:
+                    const Icon(Icons.calendar_today, color: Colors.white),
+                filled: true,
+                fillColor: const Color(0xFF2A2A2A),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: const TextStyle(color: Colors.white),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minWidth: constraints.maxWidth),
+                      child: DataTable(
+                        headingTextStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        dataTextStyle: const TextStyle(color: Colors.white),
+                        columns: const [
+                          DataColumn(label: Text('Order ID')),
+                          DataColumn(label: Text('Name')),
+                          DataColumn(label: Text('Service')),
+                          DataColumn(label: Text('Date')),
+                          DataColumn(label: Text('Price')),
+                          DataColumn(label: Text('Status')),
+                          DataColumn(label: Text('Payment Status')),
+                          DataColumn(label: Text('Payment Method')),
                         ],
+                        rows: orders
+                            .where((order) =>
+                                selectedTab == 'All orders' ||
+                                order['status'] == selectedTab)
+                            .map((order) {
+                          return DataRow(
+                            cells: [
+                              DataCell(Text(order['id'])),
+                              DataCell(Text(order['name'])),
+                              DataCell(Text(order['service'])),
+                              DataCell(Text(
+                                DateFormat('dd MMM yyyy').format(order['date']),
+                              )),
+                              DataCell(Text(
+                                  '\$${order['price'].toStringAsFixed(2)}')),
+                              DataCell(_buildStatusChip(order['status'])),
+                              DataCell(_buildPaymentStatusChip(
+                                  order['payment_status'])),
+                              DataCell(_buildPaymentMethodChip(
+                                  order['payment_method'])),
+                            ],
+                          );
+                        }).toList(),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    // Implement search functionality
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            // List header
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 25, 28, 31),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: const Row(
-                children: [
-                  Expanded(flex: 1, child: Text('Order ID')),
-                  Expanded(flex: 2, child: Text('Name')),
-                  Expanded(flex: 3, child: Text('Address')),
-                  Expanded(flex: 1, child: Text('Date')),
-                  Expanded(flex: 1, child: Text('Price')),
-                  Expanded(flex: 1, child: Text('Status')),
-                  Expanded(flex: 1, child: Text('Action')),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: orders.length,
-                itemBuilder: (context, index) {
-                  return OrderListItem(
-                    order: orders[index],
-                    onSettingsTap: (order) {
-                      // Implement settings action
-                    },
-                    onMoreTap: (order) {
-                      // Implement more options action
-                    },
                   );
                 },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTab(String text) {
+    final isSelected = selectedTab == text;
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            selectedTab = text;
+          });
+        },
+        child: Column(
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: isSelected ? Colors.blue : Colors.white.withOpacity(0.7),
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 4),
+            if (isSelected)
+              Container(
+                height: 2,
+                width: 40,
+                color: Colors.blue,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusChip(String status) {
+    Color backgroundColor;
+    switch (status.toLowerCase()) {
+      case 'pending':
+        backgroundColor = Colors.orange;
+        break;
+      case 'dispatch':
+        backgroundColor = Colors.green;
+        break;
+      case 'completed':
+        backgroundColor = Colors.blue;
+        break;
+      default:
+        backgroundColor = Colors.grey;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: backgroundColor.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: backgroundColor),
+      ),
+      child: Text(
+        status,
+        style: TextStyle(color: backgroundColor),
+      ),
+    );
+  }
+
+  Widget _buildPaymentStatusChip(String status) {
+    Color backgroundColor;
+    switch (status.toLowerCase()) {
+      case 'paid':
+        backgroundColor = Colors.green;
+        break;
+      case 'pending':
+        backgroundColor = Colors.orange;
+        break;
+      case 'failed':
+        backgroundColor = Colors.red;
+        break;
+      default:
+        backgroundColor = Colors.grey;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: backgroundColor.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: backgroundColor),
+      ),
+      child: Text(
+        status,
+        style: TextStyle(color: backgroundColor),
+      ),
+    );
+  }
+
+  Widget _buildPaymentMethodChip(String method) {
+    Color backgroundColor;
+    switch (method.toLowerCase()) {
+      case 'cash':
+        backgroundColor = Colors.green;
+        break;
+      case 'card':
+        backgroundColor = Colors.blue;
+        break;
+      case 'upi':
+        backgroundColor = Colors.purple;
+        break;
+      default:
+        backgroundColor = Colors.grey;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: backgroundColor.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: backgroundColor),
+      ),
+      child: Text(
+        method,
+        style: TextStyle(color: backgroundColor),
       ),
     );
   }
