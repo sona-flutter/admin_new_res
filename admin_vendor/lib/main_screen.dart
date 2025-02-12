@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/view/sidebar/dashboard/dashboard_screen%20copy.dart';
-import 'package:my_shop_app/view/sidebar/order/order_screen.dart';
 
+import 'view/sidebar/dashboard/dashboard_screen copy.dart';
+import 'view/sidebar/order/order_screen.dart';
 import 'view/sidebar/transaction/transaction_screen.dart';
 
 class MainScreen extends StatefulWidget {

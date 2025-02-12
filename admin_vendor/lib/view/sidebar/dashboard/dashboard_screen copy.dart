@@ -1,7 +1,7 @@
+import 'package:admin_vendor/view/sidebar/dashboard/widgets/my_fields.dart';
+import 'package:admin_vendor/view/sidebar/dashboard/widgets/recent_file.dart';
+import 'package:admin_vendor/view/sidebar/dashboard/widgets/storage_dtails.dart';
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/view/sidebar/dashboard/widgets/my_fields.dart';
-import 'package:my_shop_app/view/sidebar/dashboard/widgets/recent_file.dart';
-import 'package:my_shop_app/view/sidebar/dashboard/widgets/storage_dtails.dart';
 
 import '../../../constants.dart';
 import '../../../responsive.dart';

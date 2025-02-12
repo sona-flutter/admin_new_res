@@ -1,8 +1,7 @@
 // lib/view/transaction/widgets/transaction_card.dart
 
+import 'package:admin_vendor/model/transaction_model.dart';
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/model/transaction_model.dart';
-
 
 class TransactionCard extends StatelessWidget {
   final Transaction transaction;

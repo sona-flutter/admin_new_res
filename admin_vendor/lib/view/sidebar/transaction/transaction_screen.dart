@@ -1,9 +1,10 @@
 // lib/view/transaction/screens/transaction_screen.dart
 
+import 'package:admin_vendor/view/sidebar/transaction/widgets/transaction_list.dart';
+import 'package:admin_vendor/view/sidebar/transaction/widgets/transaction_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_shop_app/view/sidebar/transaction/widgets/transaction_list.dart';
-import 'package:my_shop_app/view/sidebar/transaction/widgets/transaction_summary.dart';
+
 import '../../../controller/transaction_controller.dart';
 
 class TransactionScreen extends StatelessWidget {

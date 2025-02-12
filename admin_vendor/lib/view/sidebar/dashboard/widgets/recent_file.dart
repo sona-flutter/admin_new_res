@@ -1,7 +1,7 @@
+import 'package:admin_vendor/constants.dart';
+import 'package:admin_vendor/model/recent_files.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_shop_app/constants.dart';
-import 'package:my_shop_app/model/recent_files.dart';
 
 class RecentFiles extends StatelessWidget {
   const RecentFiles({

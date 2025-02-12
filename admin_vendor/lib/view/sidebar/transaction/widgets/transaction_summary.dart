@@ -1,9 +1,8 @@
 // lib/view/transaction/widgets/transaction_summary.dart
 
+import 'package:admin_vendor/controller/transaction_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_shop_app/controller/transaction_controller.dart';
-import 'package:my_shop_app/models/transaction.dart';
 
 class TransactionSummary extends StatelessWidget {
   TransactionSummary({Key? key}) : super(key: key);

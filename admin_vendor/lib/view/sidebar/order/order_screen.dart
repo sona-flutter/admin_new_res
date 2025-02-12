@@ -1,6 +1,6 @@
 // lib/view/sidebar/order/order_screen.dart
+import 'package:admin_vendor/view/sidebar/order/widgets/order_model.dart';
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/view/sidebar/order/widgets/order_model.dart';
 
 import 'widgets/order_tab.dart';
 import 'widgets/order_list_item.dart';

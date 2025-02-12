@@ -1,7 +1,7 @@
+import 'package:admin_vendor/constants.dart';
+import 'package:admin_vendor/model/my_files.dart';
+import 'package:admin_vendor/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/constants.dart';
-import 'package:my_shop_app/model/my_files.dart';
-import 'package:my_shop_app/responsive.dart';
 
 import 'file_info_card.dart';
 

@@ -1,6 +1,6 @@
 // lib/view/sidebar/order/widgets/order_list_item.dart
+import 'package:admin_vendor/view/sidebar/order/widgets/order_model.dart';
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/view/sidebar/order/widgets/order_model.dart';
 
 class OrderListItem extends StatelessWidget {
   final Order order;

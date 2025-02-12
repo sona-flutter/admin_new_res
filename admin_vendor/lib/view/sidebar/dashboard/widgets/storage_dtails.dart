@@ -1,5 +1,5 @@
+import 'package:admin_vendor/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:my_shop_app/constants.dart';
 
 import 'chart.dart';
 import 'storage_info_card.dart';
