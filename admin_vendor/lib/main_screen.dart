@@ -2,6 +2,7 @@ import 'package:admin_vendor/view/sidebar/profile/profile_page.dart';
 import 'package:admin_vendor/view/sidebar/services/services_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'view/sidebar/aboutus/about_us_screen.dart';
 import 'view/sidebar/dashboard/dashboard_screen copy.dart';
 import 'view/sidebar/order/order_screen.dart';
 import 'view/sidebar/transaction/transaction_screen.dart';
@@ -22,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     const OrdersScreen(),
     ServicesScreen(),
     ProfilePage(),
-    const AboutDialog(),
+    const AboutUsScreen(),
   ];
 
   final List<NavigationItem> _navigationItems = [
