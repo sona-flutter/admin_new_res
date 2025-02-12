@@ -15,7 +15,6 @@ dependencies:
   get: ^4.6.6
   google_fonts: ^4.0.0
   intl: ^0.20.2
-  image_picker: ^1.0.4 # 🟢 Image Picker Dependency Add Keli
 
 dev_dependencies:
   flutter_test:
