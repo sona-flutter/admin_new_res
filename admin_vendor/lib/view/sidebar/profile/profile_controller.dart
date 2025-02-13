@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
-  final RxString salonName = ' Beauty Salon'.obs;
+  final RxString salonName = 'Mala Beauty Salon'.obs;
   final RxString salonEmail = 'contact@malasalon.com'.obs;
   final RxString salonPhone = '+1 234 567 890'.obs;
   final RxString salonAddress = '123 Main Street, City'.obs;
