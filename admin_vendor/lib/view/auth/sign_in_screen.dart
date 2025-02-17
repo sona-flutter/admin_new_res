@@ -1,18 +1,27 @@
-import 'package:admin_vendor/sign_up_screen.dart';
+import 'package:admin_vendor/view/auth/sign_in_screen.dart';
+import 'package:admin_vendor/view/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   bool obscurePassword = true;
-  bool isChecked = false;
-  final TextEditingController usernameController = TextEditingController();
+  bool obscureConfirmPassword = true;
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  // New controllers for additional fields
+  final TextEditingController storeNameController = TextEditingController();
+  final TextEditingController seatsCountController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
             children: [
               SizedBox(height: 60),
               Text(
-                'Log In',
+                'Sign Up',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -34,9 +43,51 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
               SizedBox(height: 30),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(
+                      controller: firstNameController,
+                      hint: 'First Name',
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: _buildTextField(
+                      controller: lastNameController,
+                      hint: 'Last Name',
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15),
               _buildTextField(
-                controller: usernameController,
-                hint: 'Username',
+                controller: emailController,
+                hint: 'Email',
+              ),
+              SizedBox(height: 15),
+              _buildTextField(
+                controller: storeNameController,
+                hint: 'Store Name',
+              ),
+              SizedBox(height: 15),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(
+                      controller: seatsCountController,
+                      hint: 'Seats Count',
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: _buildTextField(
+                      controller: locationController,
+                      hint: 'Location',
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 15),
               _buildTextField(
@@ -50,6 +101,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   });
                 },
               ),
+              SizedBox(height: 15),
+              _buildTextField(
+                controller: confirmPasswordController,
+                hint: 'Confirm Password',
+                isPassword: true,
+                obscureText: obscureConfirmPassword,
+                onToggleVisibility: () {
+                  setState(() {
+                    obscureConfirmPassword = !obscureConfirmPassword;
+                  });
+                },
+              ),
               Row(
                 children: [
                   Checkbox(
@@ -58,14 +121,24 @@ class _SignInScreenState extends State<SignInScreen> {
                     fillColor: MaterialStateProperty.all(Color(0xFFFF4C6F)),
                   ),
                   Text(
-                    'Remember me',
+                    'I Agree with ',
                     style: TextStyle(color: Colors.white70),
                   ),
-                  Spacer(),
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      'Forgot Password',
+                      'privacy',
+                      style: TextStyle(color: Color(0xFFFF4C6F)),
+                    ),
+                  ),
+                  Text(
+                    ' and ',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'policy',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
@@ -73,16 +146,18 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Add your signup logic here
+                },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFFF4C6F),
+                  backgroundColor: Color(0xFFD94F04),
                   padding: EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 child: Text(
-                  'Log In',
+                  'Sign up',
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -91,18 +166,18 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Don\'t have an account? ',
+                    'Already have an account? ',
                     style: TextStyle(color: Colors.white70),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
+                        MaterialPageRoute(builder: (context) => SignInScreen()),
                       );
                     },
                     child: Text(
-                      'Sign up',
+                      'Sign in',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
@@ -121,15 +196,17 @@ class _SignInScreenState extends State<SignInScreen> {
     bool isPassword = false,
     bool obscureText = false,
     VoidCallback? onToggleVisibility,
+    TextInputType? keyboardType,
   }) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Color(0xFFFF4C6F)),
       ),
       child: TextField(
         controller: controller,
         obscureText: isPassword ? obscureText : false,
+        keyboardType: keyboardType,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hint,

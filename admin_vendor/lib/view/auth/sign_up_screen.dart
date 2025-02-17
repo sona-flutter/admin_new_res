@@ -1,22 +1,21 @@
-import 'package:admin_vendor/sign_in_screen.dart';
+import 'package:admin_vendor/view/auth/sign_in_screen.dart';
+import 'package:admin_vendor/view/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+import '../../main_screen.dart';
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   bool obscurePassword = true;
-  bool obscureConfirmPassword = true;
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  bool isChecked = false;
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
               SizedBox(height: 60),
               Text(
-                'Sign Up',
+                'Log In',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -38,27 +37,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               SizedBox(height: 30),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildTextField(
-                      controller: firstNameController,
-                      hint: 'First Name',
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: _buildTextField(
-                      controller: lastNameController,
-                      hint: 'Last Name',
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
               _buildTextField(
-                controller: emailController,
-                hint: 'Email',
+                controller: usernameController,
+                hint: 'Username',
               ),
               SizedBox(height: 15),
               _buildTextField(
@@ -72,18 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   });
                 },
               ),
-              SizedBox(height: 15),
-              _buildTextField(
-                controller: confirmPasswordController,
-                hint: 'Confirm Password',
-                isPassword: true,
-                obscureText: obscureConfirmPassword,
-                onToggleVisibility: () {
-                  setState(() {
-                    obscureConfirmPassword = !obscureConfirmPassword;
-                  });
-                },
-              ),
               Row(
                 children: [
                   Checkbox(
@@ -92,24 +61,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fillColor: MaterialStateProperty.all(Color(0xFFFF4C6F)),
                   ),
                   Text(
-                    'I Agree with ',
+                    'Remember me',
                     style: TextStyle(color: Colors.white70),
                   ),
+                  Spacer(),
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      'privacy',
-                      style: TextStyle(color: Color(0xFFFF4C6F)),
-                    ),
-                  ),
-                  Text(
-                    ' and ',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'policy',
+                      'Forgot Password',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
@@ -118,17 +77,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Add your signup logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainScreen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFFF4C6F),
+                  backgroundColor: Color(0xFFD94F04), // Tiger Orange color
                   padding: EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius:
+                        BorderRadius.circular(10), // Updated radius to 10
                   ),
                 ),
                 child: Text(
-                  'Sign up',
+                  'Log In',
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -137,18 +100,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Already have an account? ',
+                    'Don\'t have an account? ',
                     style: TextStyle(color: Colors.white70),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignInScreen()),
+                        MaterialPageRoute(builder: (context) => SignUpScreen()),
                       );
                     },
                     child: Text(
-                      'Sign in',
+                      'Sign up',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
@@ -167,15 +130,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool isPassword = false,
     bool obscureText = false,
     VoidCallback? onToggleVisibility,
+    TextInputType? keyboardType,
   }) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Color(0xFFFF4C6F)),
       ),
       child: TextField(
         controller: controller,
         obscureText: isPassword ? obscureText : false,
+        keyboardType: keyboardType,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hint,
@@ -190,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   onPressed: onToggleVisibility,
                 )
-              : null,
+              : null, // ✅ Ensure this is properly aligned
         ),
       ),
     );

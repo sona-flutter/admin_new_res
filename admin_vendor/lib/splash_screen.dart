@@ -1,8 +1,8 @@
 import 'package:admin_vendor/main_screen.dart';
+import 'package:admin_vendor/view/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:admin_vendor/sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
