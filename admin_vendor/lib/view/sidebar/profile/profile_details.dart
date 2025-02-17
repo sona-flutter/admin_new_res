@@ -16,7 +16,7 @@ class ProfileDetails extends GetView<ProfileController> {
             const SizedBox(height: 12),
             _buildSalonName(),
             const SizedBox(height: 12),
-            _buildStats(), // 🆕 Updated Stats Section
+            _buildStats(), // 
             const SizedBox(height: 12),
             _buildContactInfo(),
           ],

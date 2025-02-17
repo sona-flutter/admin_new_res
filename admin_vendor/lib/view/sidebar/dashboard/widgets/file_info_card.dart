@@ -1,4 +1,3 @@
-// file_info_card.dart
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';

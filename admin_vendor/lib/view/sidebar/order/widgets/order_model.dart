@@ -1,5 +1,3 @@
-// lib/models/order_model.dart
-
 class Order {
   final String id;
   final String name;

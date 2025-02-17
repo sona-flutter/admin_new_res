@@ -1,4 +1,3 @@
-// lib/view/sidebar/order/widgets/order_tab.dart
 import 'package:flutter/material.dart';
 
 class OrderTab extends StatelessWidget {

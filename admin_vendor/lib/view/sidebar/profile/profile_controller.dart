@@ -10,10 +10,8 @@ class ProfileController extends GetxController {
   final RxInt totalClients = 156.obs;
   final RxDouble rating = 4.8.obs;
 
-  // Image path store karayla
   final RxnString profileImage = RxnString();
 
-  // Image select function
   Future<void> pickImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -22,7 +20,6 @@ class ProfileController extends GetxController {
     }
   }
 
-  // Services List
   List<Map<String, dynamic>> get services => [
         {'name': 'Haircut', 'price': 30, 'duration': '30 min'},
         {'name': 'Hair Color', 'price': 75, 'duration': '90 min'},
@@ -30,7 +27,6 @@ class ProfileController extends GetxController {
         {'name': 'Manicure', 'price': 25, 'duration': '45 min'},
       ];
 
-  // Staff Members List
   List<Map<String, dynamic>> get staffMembers => [
         {'name': 'John Doe', 'role': 'Senior Stylist', 'rating': 4.9},
         {'name': 'Jane Smith', 'role': 'Colorist', 'rating': 4.8},

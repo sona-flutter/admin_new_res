@@ -1,4 +1,3 @@
-// lib/view/sidebar/order/widgets/order_list_item.dart
 import 'package:admin_vendor/view/sidebar/order/widgets/order_model.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +16,11 @@ class OrderListItem extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'pending':
-        return const Color(0xFFFF9800); // Orange
+        return const Color(0xFFFF9800);
       case 'dispatch':
-        return const Color(0xFF4CAF50); // Green
+        return const Color(0xFF4CAF50);
       case 'completed':
-        return const Color(0xFF2196F3); // Blue
+        return const Color(0xFF2196F3);
       default:
         return Colors.grey;
     }
@@ -29,8 +28,7 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isSelected =
-        false; // You can make this dynamic based on selection state
+    bool isSelected = false;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -52,9 +50,7 @@ class OrderListItem extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
-          onTap: () {
-            // Handle row tap
-          },
+          onTap: () {},
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
