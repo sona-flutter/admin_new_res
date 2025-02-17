@@ -23,36 +23,35 @@ class StatsCard extends StatelessWidget {
         child: Card(
           color: color,
           child: Container(
-            height: 85, // Reduced height
-            padding: const EdgeInsets.symmetric(
-                horizontal: 12, vertical: 8), // Adjusted padding
+            height: 85,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Use minimum space needed
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Icon(icon, size: 16, color: Colors.white), // Smaller icon
+                    Icon(icon, size: 16, color: Colors.white),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
                         title,
-                        maxLines: 1, // Force single line
+                        maxLines: 1,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 12, // Smaller font
+                          fontSize: 12,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
                 ),
-                const Spacer(), // Push value to bottom
+                const Spacer(),
                 Text(
                   value,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 28, // Larger number
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

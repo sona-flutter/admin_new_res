@@ -25,13 +25,12 @@ class ProfileDetails extends GetView<ProfileController> {
     );
   }
 
-  // 🟢 Centered Profile Image with Image Picker
   Widget _buildProfileImage() {
     return Obx(() {
       return GestureDetector(
         onTap: () => controller.pickImage(),
         child: CircleAvatar(
-          radius: 50, // 🛑 Size कमी केली
+          radius: 50,
           backgroundColor: Colors.grey[300],
           backgroundImage: controller.profileImage.value != null
               ? FileImage(File(controller.profileImage.value!)) as ImageProvider
@@ -44,19 +43,17 @@ class ProfileDetails extends GetView<ProfileController> {
     });
   }
 
-  // 🟢 Salon Name
   Widget _buildSalonName() {
     return Obx(() => Text(
           controller.salonName.value,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.blue.shade700, // 🔵 Beauty Salon चा रंग blue केला
+            color: Colors.blue.shade700,
           ),
         ));
   }
 
-  // 🆕 Updated Stats Section with New Colors
   Widget _buildStats() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -74,7 +71,6 @@ class ProfileDetails extends GetView<ProfileController> {
     );
   }
 
-  // 🆕 Vertical Divider (Light Gray)
   Widget _verticalDivider() {
     return Container(
       height: 30,
@@ -86,27 +82,23 @@ class ProfileDetails extends GetView<ProfileController> {
   Widget _buildStatItem(IconData icon, String value, String label) {
     return Column(
       children: [
-        Icon(icon,
-            color: Colors.blue.shade600,
-            size: 24), // 🔵 Icons ला हलकासा blue tone
+        Icon(icon, color: Colors.blue.shade600, size: 24),
         const SizedBox(height: 2),
         Text(value,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Colors.teal.shade700, // 🟢 Numbers teal रंगात
+              color: Colors.teal.shade700,
             )),
         Text(label,
             style: TextStyle(
               fontSize: 12,
-              color:
-                  Colors.blueGrey.shade600, // 🔵 Labels हलकासा blue-grey केला
+              color: Colors.blueGrey.shade600,
             )),
       ],
     );
   }
 
-  // 🟢 Contact Info Section
   Widget _buildContactInfo() {
     return Column(
       children: [
