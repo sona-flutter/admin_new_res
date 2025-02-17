@@ -1,5 +1,3 @@
-// lib/model/transaction_model.dart
-
 class Transaction {
   final String id;
   final String orderType;

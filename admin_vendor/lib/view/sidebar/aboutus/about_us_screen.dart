@@ -20,17 +20,14 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Lottie Animation
               Center(
                 child: Lottie.asset(
-                  'assets/animation/dot.json', // Add your work in progress animation
+                  'assets/animation/dot.json',
                   height: 200,
                   fit: BoxFit.contain,
                 ),
               ),
               const SizedBox(height: 30),
-
-              // Company Name
               Text(
                 'Prakrut Systems',
                 style: GoogleFonts.poppins(
@@ -40,8 +37,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Description
               Text(
                 'We are passionate about creating innovative solutions that empower businesses to thrive in the digital age.',
                 style: GoogleFonts.poppins(
@@ -51,8 +46,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 ),
               ),
               const SizedBox(height: 30),
-
-              // What We Do Section
               Text(
                 'What We Do',
                 style: GoogleFonts.poppins(
@@ -77,10 +70,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 description: 'Responsive and scalable web applications',
                 icon: Icons.web,
               ),
-
               const SizedBox(height: 30),
-
-              // Contact Info
               Text(
                 'Get in Touch',
                 style: GoogleFonts.poppins(

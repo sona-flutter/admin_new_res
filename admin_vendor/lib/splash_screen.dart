@@ -44,7 +44,6 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background Lottie Animation
           Positioned.fill(
             child: Lottie.asset(
               'assets/animation/vendor1.json',
@@ -55,8 +54,6 @@ class _SplashScreenState extends State<SplashScreen>
               },
             ),
           ),
-
-          // Centered Content
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +71,6 @@ class _SplashScreenState extends State<SplashScreen>
               ],
             ),
           ),
-
-          // Company Name at Bottom
           Positioned(
             bottom: 40,
             left: 0,

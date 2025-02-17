@@ -1,4 +1,3 @@
-// First, let's define the RecentFile model
 class RecentFile {
   final String? title;
   final String? date;

@@ -73,9 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  // Add your login logic here
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFFF4C6F),
                   padding: EdgeInsets.symmetric(vertical: 15),

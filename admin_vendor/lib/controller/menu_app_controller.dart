@@ -1,4 +1,3 @@
-// in menu_app_controller.dart
 import 'package:flutter/material.dart';
 
 class MenuAppController extends ChangeNotifier {

@@ -1,5 +1,3 @@
-// lib/controller/transaction_controller.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../model/transaction_model.dart';
