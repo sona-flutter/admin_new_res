@@ -1,183 +1,110 @@
-import 'package:admin_vendor/view/auth/sign_in_screen.dart';
+import 'package:admin_vendor/controller/login_controller.dart';
+import 'package:admin_vendor/services/auth_service.dart';
+import 'package:admin_vendor/view/auth/forgot_password_screen.dart';
 import 'package:admin_vendor/view/auth/sign_up_screen.dart';
+import 'package:admin_vendor/view/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  bool obscurePassword = true;
-  bool obscureConfirmPassword = true;
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  // New controllers for additional fields
-  final TextEditingController storeNameController = TextEditingController();
-  final TextEditingController seatsCountController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
+class SignInScreen extends StatelessWidget {
+  SignInScreen({super.key});
+  final LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1A1B2E),
+      backgroundColor: const Color(0xFF1A1B2E),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 60),
-              Text(
-                'Sign Up',
+              const SizedBox(height: 60),
+              const Text(
+                'Log In',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildTextField(
-                      controller: firstNameController,
-                      hint: 'First Name',
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: _buildTextField(
-                      controller: lastNameController,
-                      hint: 'Last Name',
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
+              const SizedBox(height: 30),
               _buildTextField(
-                controller: emailController,
-                hint: 'Email',
+                controller: loginController.usernameController,
+                hint: 'Username',
               ),
-              SizedBox(height: 15),
-              _buildTextField(
-                controller: storeNameController,
-                hint: 'Store Name',
-              ),
-              SizedBox(height: 15),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildTextField(
-                      controller: seatsCountController,
-                      hint: 'Seats Count',
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: _buildTextField(
-                      controller: locationController,
-                      hint: 'Location',
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              _buildTextField(
-                controller: passwordController,
-                hint: 'Password',
-                isPassword: true,
-                obscureText: obscurePassword,
-                onToggleVisibility: () {
-                  setState(() {
-                    obscurePassword = !obscurePassword;
-                  });
-                },
-              ),
-              SizedBox(height: 15),
-              _buildTextField(
-                controller: confirmPasswordController,
-                hint: 'Confirm Password',
-                isPassword: true,
-                obscureText: obscureConfirmPassword,
-                onToggleVisibility: () {
-                  setState(() {
-                    obscureConfirmPassword = !obscureConfirmPassword;
-                  });
-                },
+              const SizedBox(height: 15),
+              Obx(
+                () => _buildTextField(
+                  controller: loginController.passwordController,
+                  hint: 'Password',
+                  isPassword: true,
+                  obscureText: loginController.obscurePassword.value,
+                  onToggleVisibility: () {
+                    loginController.obscurePassword.value =
+                        !loginController.obscurePassword.value;
+                  },
+                ),
               ),
               Row(
                 children: [
                   Checkbox(
                     value: false,
                     onChanged: (value) {},
-                    fillColor: MaterialStateProperty.all(Color(0xFFFF4C6F)),
+                    fillColor: WidgetStateProperty.all(const Color(0xFFFF4C6F)),
                   ),
-                  Text(
-                    'I Agree with ',
+                  const Text(
+                    'Remember me',
                     style: TextStyle(color: Colors.white70),
                   ),
+                  const Spacer(),
                   TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'privacy',
-                      style: TextStyle(color: Color(0xFFFF4C6F)),
-                    ),
-                  ),
-                  Text(
-                    ' and ',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'policy',
+                    onPressed: () {
+                      Get.to(() => ForgotPasswordScreen());
+                    },
+                    child: const Text(
+                      'Forgot Password',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Add your signup logic here
+              const SizedBox(height: 20),
+              CustomButton(
+                btnName: "Log In",
+                onTap: () {
+                  if (loginController.usernameController.text
+                          .trim()
+                          .isNotEmpty &&
+                      loginController.passwordController.text
+                          .trim()
+                          .isNotEmpty) {
+                    LoginUser.loginUser(
+                      context,
+                      email: loginController.usernameController.text,
+                      password: loginController.passwordController.text,
+                    );
+                  }
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFD94F04),
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: Text(
-                  'Sign up',
-                  style: TextStyle(fontSize: 16),
-                ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Already have an account? ',
+                  const Text(
+                    'Don\'t have an account? ',
                     style: TextStyle(color: Colors.white70),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignInScreen()),
+                      Get.to(
+                        transition: Transition.fadeIn,
+                        () => SignUpScreen(),
                       );
                     },
-                    child: Text(
-                      'Sign in',
+                    child: const Text(
+                      'Sign up',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
@@ -196,22 +123,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool isPassword = false,
     bool obscureText = false,
     VoidCallback? onToggleVisibility,
-    TextInputType? keyboardType,
+    FormFieldValidator<String>? validator,
   }) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Color(0xFFFF4C6F)),
+        borderRadius: BorderRadius.circular(10), // Updated radius to 10
+        border: Border.all(color: const Color(0xFFFF4C6F)),
       ),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: isPassword ? obscureText : false,
-        keyboardType: keyboardType,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
+        validator: validator,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white54),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          hintStyle: const TextStyle(color: Colors.white54),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           border: InputBorder.none,
           suffixIcon: isPassword
               ? IconButton(

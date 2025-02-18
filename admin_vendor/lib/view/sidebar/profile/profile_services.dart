@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'profile_controller.dart';
+import '../../../controller/profile_controller.dart';
 
 class ProfileServices extends GetView<ProfileController> {
+  const ProfileServices({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(

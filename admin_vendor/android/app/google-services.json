@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "924789566437",
+    "project_id": "salon-booking-52107",
+    "storage_bucket": "salon-booking-52107.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924789566437:android:cf06b79458439e87aa9d0c",
+        "android_client_info": {
+          "package_name": "com.example.admin_vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924789566437-lhlg1c8akfd3536270h489pkbvtlovum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1Hr9YpqCUHl6GOsTFZl-TS3zEq26IU_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924789566437-lhlg1c8akfd3536270h489pkbvtlovum.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924789566437:android:f61eede4acf6fc57aa9d0c",
+        "android_client_info": {
+          "package_name": "com.example.neo_salon_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924789566437-nvk31ovl6eriqobfff9v2nlbppuqo3lg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.neo_salon_user",
+            "certificate_hash": "fc6daf9e2399de11e9bf4dcd30486db6523368ba"
+          }
+        },
+        {
+          "client_id": "924789566437-lhlg1c8akfd3536270h489pkbvtlovum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1Hr9YpqCUHl6GOsTFZl-TS3zEq26IU_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924789566437-lhlg1c8akfd3536270h489pkbvtlovum.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

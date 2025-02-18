@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'profile_controller.dart';
+import '../../../controller/profile_controller.dart';
 import 'profile_details.dart';
 import 'profile_services.dart';
 import 'profile_staff.dart';
 
 class ProfilePage extends StatelessWidget {
+  ProfilePage({super.key});
   final ProfileController controller = Get.put(ProfileController());
 
   @override
@@ -16,9 +17,9 @@ class ProfilePage extends StatelessWidget {
           children: [
             ProfileDetails(),
             const SizedBox(height: 16),
-            ProfileServices(),
+            const ProfileServices(),
             const SizedBox(height: 16),
-            ProfileStaff(),
+            const ProfileStaff(),
           ],
         ),
       ),

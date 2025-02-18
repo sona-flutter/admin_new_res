@@ -1,6 +1,8 @@
 // service_dialog.dart
+import 'package:admin_vendor/controller/add_service_controller.dart';
+import 'package:admin_vendor/controller/get_service_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class AddServiceDialog extends StatefulWidget {
   final String salonName;
@@ -11,7 +13,7 @@ class AddServiceDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AddServiceDialogState createState() => _AddServiceDialogState();
+  State createState() => _AddServiceDialogState();
 }
 
 class _AddServiceDialogState extends State<AddServiceDialog> {
@@ -20,6 +22,13 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
   late TextEditingController _priceController;
   late TextEditingController _discountController;
   late TextEditingController _finalPriceController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _requiredTime;
+  final AddServiceController addServiceController =
+      Get.put(AddServiceController());
+  final GetServiceController getServiceController = GetServiceController();
+
+  late TextEditingController _categoryController;
 
   @override
   void initState() {
@@ -27,7 +36,10 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
     _serviceNameController = TextEditingController();
     _priceController = TextEditingController();
     _discountController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _requiredTime = TextEditingController();
     _finalPriceController = TextEditingController();
+    _categoryController = TextEditingController();
   }
 
   @override
@@ -36,6 +48,8 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
     _priceController.dispose();
     _discountController.dispose();
     _finalPriceController.dispose();
+    _descriptionController.dispose();
+    _requiredTime.dispose();
     super.dispose();
   }
 
@@ -75,10 +89,10 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.close, color: Colors.white),
+                        icon: const Icon(Icons.close, color: Colors.white),
                         onPressed: () => Navigator.pop(context),
                       ),
-                      Text(
+                      const Text(
                         'Add New Service',
                         style: TextStyle(
                           color: Colors.white,
@@ -86,15 +100,15 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: 40), // For balance
+                      const SizedBox(width: 40), // For balance
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     'Salon Name: ${widget.salonName}',
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                    style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildTextField(
                     controller: _serviceNameController,
                     label: 'Service Name',
@@ -102,7 +116,30 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
                         ? 'Please enter service name'
                         : null,
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 20),
+                  _buildTextField(
+                    controller: _categoryController,
+                    label: 'Category',
+                    validator: (value) =>
+                        value?.isEmpty ?? true ? 'Please enter category' : null,
+                  ),
+                  const SizedBox(height: 20),
+                  _buildTextField(
+                    controller: _descriptionController,
+                    label: 'Description',
+                    validator: (value) => value?.isEmpty ?? true
+                        ? 'Please enter description'
+                        : null,
+                  ),
+                  const SizedBox(height: 20),
+                  _buildTextField(
+                    controller: _requiredTime,
+                    label: 'Required time',
+                    validator: (value) => value?.isEmpty ?? true
+                        ? 'Please enter required time'
+                        : null,
+                  ),
+                  const SizedBox(height: 15),
                   _buildTextField(
                     controller: _priceController,
                     label: 'Price',
@@ -111,7 +148,7 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
                         value?.isEmpty ?? true ? 'Please enter price' : null,
                     onChanged: (value) => _calculateFinalPrice(),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   _buildTextField(
                     controller: _discountController,
                     label: 'Discount (%)',
@@ -120,25 +157,25 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
                       if (value?.isEmpty ?? true) return null;
                       double? discount = double.tryParse(value!);
                       if (discount == null || discount < 0 || discount > 100) {
-                        return 'Enter valid discount (0-100)';
+                        return 'Enter valid discount (0-100)%';
                       }
                       return null;
                     },
                     onChanged: (value) => _calculateFinalPrice(),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   _buildTextField(
                     controller: _finalPriceController,
                     label: 'Final Price',
                     enabled: false,
                     keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Center(
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 30,
                           vertical: 15,
                         ),
@@ -148,18 +185,22 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          // TODO: Implement service addition logic
-                          Navigator.pop(context, {
-                            'serviceName': _serviceNameController.text,
-                            'price': double.parse(_priceController.text),
-                            'discount': double.parse(_discountController.text),
-                            'finalPrice':
-                                double.parse(_finalPriceController.text),
-                          });
+                          Get.back();
+                          addServiceController.addService(
+                            context,
+                            serviceName: _serviceNameController.text,
+                            description: _descriptionController.text,
+                            price: _priceController.text,
+                            discount: _discountController.text,
+                            finalPrice: _finalPriceController.text,
+                            requiredTime: _requiredTime.text,
+                            category: _categoryController.text,
+                          );
+                          getServiceController.getProductData();
                         }
                       },
-                      icon: Icon(Icons.add, color: Colors.white),
-                      label: Text(
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      label: const Text(
                         'Add Service',
                         style: TextStyle(
                           color: Colors.white,
@@ -190,28 +231,28 @@ class _AddServiceDialogState extends State<AddServiceDialog> {
       controller: controller,
       enabled: enabled,
       keyboardType: keyboardType,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white70),
+        labelStyle: const TextStyle(color: Colors.white70),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white30),
+          borderSide: const BorderSide(color: Colors.white30),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Colors.orange),
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white30),
+          borderSide: const BorderSide(color: Colors.white30),
           borderRadius: BorderRadius.circular(8),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(8),
         ),
       ),

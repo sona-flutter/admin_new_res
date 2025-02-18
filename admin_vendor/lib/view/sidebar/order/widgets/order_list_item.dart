@@ -33,6 +33,7 @@ class OrderListItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
+        // ignore: dead_code
         color: isSelected ? Colors.blue.shade50 : Colors.black,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(

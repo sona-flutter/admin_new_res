@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'package:admin_vendor/controller/get_user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'profile_controller.dart';
+import '../../../controller/profile_controller.dart';
 
 class ProfileDetails extends GetView<ProfileController> {
+  final GetUserDataController getUserDataController =
+      Get.put(GetUserDataController());
+  ProfileDetails({super.key});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -16,7 +20,7 @@ class ProfileDetails extends GetView<ProfileController> {
             const SizedBox(height: 12),
             _buildSalonName(),
             const SizedBox(height: 12),
-            _buildStats(), // 
+            _buildStats(), //
             const SizedBox(height: 12),
             _buildContactInfo(),
           ],
@@ -44,14 +48,14 @@ class ProfileDetails extends GetView<ProfileController> {
   }
 
   Widget _buildSalonName() {
-    return Obx(() => Text(
-          controller.salonName.value,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.blue.shade700,
-          ),
-        ));
+    return Text(
+      getUserDataController.userData!.storeName!,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.blue.shade700,
+      ),
+    );
   }
 
   Widget _buildStats() {
@@ -64,9 +68,11 @@ class ProfileDetails extends GetView<ProfileController> {
         _buildStatItem(
             Icons.build, '${controller.services.length}', 'Services'),
         _verticalDivider(),
-        _buildStatItem(Icons.chair, '8', 'Chairs'),
+        _buildStatItem(Icons.chair,
+            getUserDataController.userData!.seats.toString(), 'Chairs'),
         _verticalDivider(),
-        _buildStatItem(Icons.star, '${controller.rating}', 'Rating'),
+        _buildStatItem(Icons.star,
+            getUserDataController.userData!.rating.toString(), 'Rating'),
       ],
     );
   }
@@ -104,25 +110,25 @@ class ProfileDetails extends GetView<ProfileController> {
       children: [
         ListTile(
           leading: Icon(Icons.email, size: 18, color: Colors.blueGrey.shade600),
-          title: Obx(() => Text(
-                controller.salonEmail.value,
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-              )),
+          title: Text(
+            getUserDataController.userData!.email!,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
         ),
         ListTile(
           leading: Icon(Icons.phone, size: 18, color: Colors.blueGrey.shade600),
-          title: Obx(() => Text(
-                controller.salonPhone.value,
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-              )),
+          title: Text(
+            getUserDataController.userData!.phoneno!,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
         ),
         ListTile(
           leading: Icon(Icons.location_on,
               size: 18, color: Colors.blueGrey.shade600),
-          title: Obx(() => Text(
-                controller.salonAddress.value,
-                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-              )),
+          title: Text(
+            getUserDataController.userData!.location!,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
         ),
       ],
     );

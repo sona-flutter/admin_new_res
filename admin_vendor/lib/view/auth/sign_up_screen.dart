@@ -1,117 +1,219 @@
-import 'package:admin_vendor/view/auth/sign_in_screen.dart';
-import 'package:admin_vendor/view/auth/sign_up_screen.dart';
+import 'package:admin_vendor/controller/signup_controller.dart';
+import 'package:admin_vendor/services/auth_service.dart';
+import 'package:admin_vendor/view/widgets/custom_button.dart';
+import 'package:admin_vendor/view/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../main_screen.dart';
-
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
-  bool obscurePassword = true;
-  bool isChecked = false;
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({super.key});
+  final SignupController signupController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1A1B2E),
+      backgroundColor: const Color(0xFF1A1B2E),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 60),
-              Text(
-                'Log In',
+              const SizedBox(height: 60),
+              const Text(
+                'Sign Up',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
+              Row(
+                spacing: 10,
+                children: [
+                  Expanded(
+                    child: _buildTextField(
+                      controller: signupController.firstNameController,
+                      hint: 'First Name',
+                    ),
+                  ),
+                  Expanded(
+                    child: _buildTextField(
+                      controller: signupController.lastNameController,
+                      hint: 'Last Name',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
               _buildTextField(
-                controller: usernameController,
+                controller: signupController.userNameController,
                 hint: 'Username',
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               _buildTextField(
-                controller: passwordController,
-                hint: 'Password',
-                isPassword: true,
-                obscureText: obscurePassword,
-                onToggleVisibility: () {
-                  setState(() {
-                    obscurePassword = !obscurePassword;
-                  });
-                },
+                controller: signupController.emailController,
+                hint: 'Email',
+              ),
+              const SizedBox(height: 15),
+              _buildTextField(
+                controller: signupController.phonenoController,
+                hint: 'Phone number',
+              ),
+              const SizedBox(height: 15),
+              _buildTextField(
+                controller: signupController.storeNameController,
+                hint: 'Store Name',
+              ),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(
+                      controller: signupController.seatsCountController,
+                      hint: 'Seats Count',
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: _buildTextField(
+                      controller: signupController.locationController,
+                      hint: 'Location',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Obx(
+                () => _buildTextField(
+                  controller: signupController.passwordController,
+                  hint: 'Password',
+                  isPassword: true,
+                  obscureText: signupController.obscurePassword.value,
+                  onToggleVisibility: () {
+                    signupController.obscurePassword.value =
+                        !signupController.obscurePassword.value;
+                  },
+                ),
+              ),
+              const SizedBox(height: 15),
+              Obx(
+                () => _buildTextField(
+                  controller: signupController.confirmPasswordController,
+                  hint: 'Confirm Password',
+                  isPassword: true,
+                  obscureText: signupController.obscureConfirmPassword.value,
+                  onToggleVisibility: () {
+                    signupController.obscureConfirmPassword.value =
+                        !signupController.obscureConfirmPassword.value;
+                  },
+                ),
               ),
               Row(
                 children: [
                   Checkbox(
                     value: false,
                     onChanged: (value) {},
-                    fillColor: MaterialStateProperty.all(Color(0xFFFF4C6F)),
+                    fillColor: WidgetStateProperty.all(const Color(0xFFFF4C6F)),
                   ),
-                  Text(
-                    'Remember me',
+                  const Text(
+                    'I Agree with ',
                     style: TextStyle(color: Colors.white70),
                   ),
-                  Spacer(),
                   TextButton(
                     onPressed: () {},
-                    child: Text(
-                      'Forgot Password',
+                    child: const Text(
+                      'privacy',
+                      style: TextStyle(color: Color(0xFFFF4C6F)),
+                    ),
+                  ),
+                  const Text(
+                    ' and ',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'policy',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFD94F04), // Tiger Orange color
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(10), // Updated radius to 10
-                  ),
-                ),
-                child: Text(
-                  'Log In',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+              CustomButton(
+                  btnName: "Sign up",
+                  onTap: () {
+                    if (signupController.emailController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.passwordController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.confirmPasswordController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.firstNameController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.phonenoController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.locationController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.seatsCountController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.lastNameController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.userNameController.text
+                            .trim()
+                            .isNotEmpty &&
+                        signupController.storeNameController.text
+                            .trim()
+                            .isNotEmpty) {
+                      if (signupController.passwordController.text ==
+                          signupController.confirmPasswordController.text) {
+                        SignupNewUser.signUpNewUser(
+                          context,
+                          firstName: signupController.firstNameController.text,
+                          lastName: signupController.lastNameController.text,
+                          userName: signupController.userNameController.text,
+                          email: signupController.emailController.text,
+                          phoneno: signupController.phonenoController.text,
+                          storeName: signupController.storeNameController.text,
+                          location: signupController.locationController.text,
+                          seats: int.parse(
+                              signupController.seatsCountController.text),
+                          password: signupController.passwordController.text,
+                        );
+                      } else {
+                        CustomSnackbar.customSnackbar(
+                            isError: true, message: "Password does't match");
+                      }
+                    } else {
+                      CustomSnackbar.customSnackbar(
+                          isError: true, message: "Please Enter Values");
+                    }
+                  }),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Don\'t have an account? ',
+                  const Text(
+                    'Already have an account? ',
                     style: TextStyle(color: Colors.white70),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
-                      );
+                      Get.back();
                     },
-                    child: Text(
-                      'Sign up',
+                    child: const Text(
+                      'Sign in',
                       style: TextStyle(color: Color(0xFFFF4C6F)),
                     ),
                   ),
@@ -135,17 +237,18 @@ class _SignInScreenState extends State<SignInScreen> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Color(0xFFFF4C6F)),
+        border: Border.all(color: const Color(0xFFFF4C6F)),
       ),
       child: TextField(
         controller: controller,
         obscureText: isPassword ? obscureText : false,
         keyboardType: keyboardType,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white54),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          hintStyle: const TextStyle(color: Colors.white54),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           border: InputBorder.none,
           suffixIcon: isPassword
               ? IconButton(
@@ -155,7 +258,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   onPressed: onToggleVisibility,
                 )
-              : null, // ✅ Ensure this is properly aligned
+              : null,
         ),
       ),
     );

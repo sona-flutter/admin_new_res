@@ -15,7 +15,7 @@ class FileInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.circular(10),
@@ -28,7 +28,7 @@ class FileInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.all(defaultPadding * 0.75),
+                padding: const EdgeInsets.all(defaultPadding * 0.75),
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
@@ -40,14 +40,14 @@ class FileInfoCard extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
+              const Icon(Icons.more_vert, color: Colors.white54)
             ],
           ),
           Text(
             info.title!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 14),
           ),
           ProgressLine(
             color: info.color,
@@ -97,7 +97,7 @@ class ProgressLine extends StatelessWidget {
           height: 5,
           decoration: BoxDecoration(
             color: color?.withOpacity(0.1),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
         ),
         LayoutBuilder(
@@ -106,7 +106,7 @@ class ProgressLine extends StatelessWidget {
             height: 5,
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
           ),
         ),
@@ -115,15 +115,14 @@ class ProgressLine extends StatelessWidget {
   }
 }
 
-// my_files.dart
 class MyFiles extends StatelessWidget {
   const MyFiles({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       child: Column(
         children: [
           Row(
@@ -142,22 +141,22 @@ class MyFiles extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                icon: Icon(Icons.add),
-                label: Text("Add New"),
+                icon: const Icon(Icons.add),
+                label: const Text("Add New"),
               ),
             ],
           ),
-          SizedBox(height: defaultPadding),
+          const SizedBox(height: defaultPadding),
           Responsive(
             mobile: FileInfoCardGridView(
-              crossAxisCount: _size.width < 650 ? 2 : 4,
-              childAspectRatio: _size.width < 850 ? 1.3 : 1,
+              crossAxisCount: size.width < 650 ? 2 : 4,
+              childAspectRatio: size.width < 850 ? 1.3 : 1,
             ),
             tablet: FileInfoCardGridView(
-              childAspectRatio: _size.width < 900 ? 1.5 : 1.8,
+              childAspectRatio: size.width < 900 ? 1.5 : 1.8,
             ),
             desktop: FileInfoCardGridView(
-              childAspectRatio: _size.width < 1400 ? 1.4 : 1.8,
+              childAspectRatio: size.width < 1400 ? 1.4 : 1.8,
             ),
           ),
         ],
@@ -179,9 +178,10 @@ class FileInfoCardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 300), // Add height constraint
+      constraints:
+          const BoxConstraints(maxHeight: 300), // Add height constraint
       child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: demoMyFiles.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

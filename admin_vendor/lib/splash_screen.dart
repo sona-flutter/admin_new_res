@@ -1,6 +1,11 @@
+import 'package:admin_vendor/controller/get_user_data_model.dart';
 import 'package:admin_vendor/main_screen.dart';
-import 'package:admin_vendor/view/auth/sign_up_screen.dart';
+import 'package:admin_vendor/model/get_user_data_model.dart';
+import 'package:admin_vendor/services/session_data.dart';
+import 'package:admin_vendor/view/auth/sign_in_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,12 +28,29 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
     );
 
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SignInScreen()),
-      );
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () async {
+        await SessionData.getSessionData();
+        Get.put(GetUserDataController());
+        final GetUserDataController find = Get.find();
+        final FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+        if (SessionData.isLogin!) {
+          await SessionData.getUid();
+
+          DocumentSnapshot<Map<String, dynamic>> data =
+              await fireStore.collection('Vendor').doc(SessionData.uid).get();
+
+          find.userData = GetUserDataModel(data.data()!);
+
+          Get.offAll(() => const MainScreen());
+        } else {
+          // ignore: use_build_context_synchronously
+          Get.offAll(() => SignInScreen());
+        }
+      },
+    );
   }
 
   @override
